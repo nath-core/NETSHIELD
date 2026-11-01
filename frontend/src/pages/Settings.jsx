@@ -5,7 +5,7 @@ import client, { getApiBaseUrl } from '../services/api';
 
 /**
  * File: Settings.jsx
- * Author: Antigravity AI
+ * Author: Nath
  * Purpose: Application settings page for configuring system limits, backend API endpoints, and interactive simulation timing delays.
  */
 
@@ -81,7 +81,7 @@ export default function Settings() {
 
       <div className="max-w-2xl bg-[#233D4C] border border-[#4B5563]/25 rounded-xl p-8 space-y-6 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#FD802E]"></div>
-        
+
         <div className="flex gap-4">
           <div className="p-3 bg-[#FD802E]/10 rounded-xl text-[#FD802E] border border-[#FD802E]/20 flex-shrink-0 h-12 w-12 flex items-center justify-center">
             <SettingsIcon className="h-6 w-6" />
@@ -103,14 +103,12 @@ export default function Settings() {
             </div>
             <button
               onClick={() => setDevMode(!devMode)}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${
-                devMode ? 'bg-[#FD802E]' : 'bg-[#1B2838] border border-[#4B5563]/30'
-              }`}
+              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${devMode ? 'bg-[#FD802E]' : 'bg-[#1B2838] border border-[#4B5563]/30'
+                }`}
             >
               <div
-                className={`w-4 h-4 rounded-full bg-[#F8FAFC] transform transition-transform duration-200 ${
-                  devMode ? 'translate-x-6' : 'translate-x-0'
-                }`}
+                className={`w-4 h-4 rounded-full bg-[#F8FAFC] transform transition-transform duration-200 ${devMode ? 'translate-x-6' : 'translate-x-0'
+                  }`}
               />
             </button>
           </div>
@@ -123,14 +121,12 @@ export default function Settings() {
             </div>
             <button
               onClick={() => setAutosave(!autosave)}
-              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${
-                autosave ? 'bg-[#FD802E]' : 'bg-[#1B2838] border border-[#4B5563]/30'
-              }`}
+              className={`w-12 h-6 rounded-full p-1 transition-colors duration-200 focus:outline-none ${autosave ? 'bg-[#FD802E]' : 'bg-[#1B2838] border border-[#4B5563]/30'
+                }`}
             >
               <div
-                className={`w-4 h-4 rounded-full bg-[#F8FAFC] transform transition-transform duration-200 ${
-                  autosave ? 'translate-x-6' : 'translate-x-0'
-                }`}
+                className={`w-4 h-4 rounded-full bg-[#F8FAFC] transform transition-transform duration-200 ${autosave ? 'translate-x-6' : 'translate-x-0'
+                  }`}
               />
             </button>
           </div>
@@ -160,7 +156,7 @@ export default function Settings() {
             <Sliders className="h-4 w-4 text-[#FD802E]" />
             <h3 className="text-xs font-bold text-[#FD802E] uppercase tracking-wide">Attack & Recovery Delays (ms)</h3>
           </div>
-          
+
           {/* Link propagation delay */}
           <div className="p-3 bg-[#0F1720]/40 rounded-lg border border-[#4B5563]/15 space-y-2">
             <div className="flex justify-between items-center">
@@ -227,7 +223,7 @@ export default function Settings() {
       {/* Backend API & Cloud Deployment Configuration */}
       <div className="max-w-2xl bg-[#233D4C] border border-[#4B5563]/25 rounded-xl p-8 space-y-6 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-1 bg-[#10B981]"></div>
-        
+
         <div className="flex justify-between items-start">
           <div className="flex gap-4">
             <div className="p-3 bg-[#10B981]/10 rounded-xl text-[#10B981] border border-[#10B981]/20 flex-shrink-0 h-12 w-12 flex items-center justify-center">
