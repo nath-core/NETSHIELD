@@ -14,11 +14,11 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Enable CORS for React frontend running locally
+# Enable CORS for React frontend running locally or on Render cloud
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

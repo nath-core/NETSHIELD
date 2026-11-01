@@ -1709,7 +1709,7 @@ export function SimulationProvider({ children }) {
         budget: options.budget !== undefined ? options.budget : budget
       });
 
-      if (response.success) {
+      if (response && response.success) {
         setTimeline([]);
         setStatistics(response.statistics || {});
         setLearning(response.learning || {});
@@ -1747,12 +1747,14 @@ export function SimulationProvider({ children }) {
           );
         }, 0);
       } else {
-        setErrorMsg('Recovery planning computation failed.');
+        const errorDetail = response?.result?.error || response?.detail || 'Recovery planning computation failed.';
+        setErrorMsg(errorDetail);
         setSimulationStatus('idle');
       }
     } catch (err) {
       console.error('Recovery API error', err);
-      setErrorMsg('Recovery API request failed.');
+      const msg = err.response?.data?.detail || err.message || 'Recovery API request failed.';
+      setErrorMsg(msg);
       setSimulationStatus('idle');
     }
   };

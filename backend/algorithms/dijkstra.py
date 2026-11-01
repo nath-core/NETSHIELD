@@ -26,11 +26,14 @@ def run_dijkstra(graph: Dict[str, Any], start_node: str, options: Dict[str, Any]
     node_ids = {n["id"] for n in nodes}
     node_labels = {n["id"]: n.get("label", n["id"]) for n in nodes}
     
-    # Validation checks
+    if not nodes:
+        return {"success": False, "timeline": [], "statistics": {}, "learning": {}, "result": {"error": "Graph is empty."}}
+
+    # Gracefully assign defaults if missing or mismatched
     if not start_node or start_node not in node_ids:
-        return {"success": False, "timeline": [], "statistics": {}, "learning": {}, "result": {"error": "Invalid start node."}}
+        start_node = nodes[0]["id"]
     if not destination or destination not in node_ids:
-        return {"success": False, "timeline": [], "statistics": {}, "learning": {}, "result": {"error": "Invalid destination node."}}
+        destination = nodes[-1]["id"] if len(nodes) > 1 else start_node
 
     # Build Adjacency List
     adj = {n["id"]: [] for n in nodes}

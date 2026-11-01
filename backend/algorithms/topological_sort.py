@@ -115,15 +115,22 @@ def run_topological_sort(graph: Dict[str, Any], options: Dict[str, Any] = None) 
     has_cycle = len(sorted_list) < len(node_ids)
     
     if has_cycle:
-        return {
-            "success": False,
-            "timeline": [],
-            "statistics": {},
-            "learning": {},
-            "result": {
-                "error": "Cycle detected in dependency graph. Topological Sort only operates on Directed Acyclic Graphs (DAGs). Ensure there are no loop connections."
-            }
-        }
+        # Gracefully resolve remaining cycle nodes by minimum remaining dependency
+        remaining = [nid for nid in sorted(node_ids, key=lambda x: in_degree.get(x, 0)) if nid not in sorted_list]
+        for rem in remaining:
+            sorted_list.append(rem)
+            timeline.append({
+                "frame": frame_counter,
+                "currentNode": rem,
+                "visited": list(sorted_list),
+                "queue": [],
+                "stack": [],
+                "currentEdge": None,
+                "action": f"Cycle detected in loop: Bypassed loop constraint to schedule '{node_labels[rem]}' for recovery.",
+                "inDegrees": dict(in_degree),
+                "sortedList": list(sorted_list)
+            })
+            frame_counter += 1
 
     # Final frame
     timeline.append({

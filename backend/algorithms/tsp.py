@@ -81,11 +81,32 @@ def run_tsp(graph: Dict[str, Any], start_node: str = None, options: Dict[str, An
     N = len(targets)
     if N < 2:
         return {
-            "success": False,
-            "timeline": [],
-            "statistics": {},
-            "learning": {},
-            "result": {"error": "Graph must contain at least 2 reachable devices to schedule a tour."}
+            "success": True,
+            "timeline": [{
+                "frame": 1,
+                "currentNode": start_node,
+                "visited": [start_node],
+                "queue": [],
+                "stack": [],
+                "currentEdge": None,
+                "action": f"Single node tour: Device '{node_labels.get(start_node, start_node)}' visited (no other key targets found).",
+                "distanceMatrix": {start_node: {start_node: 0.0}},
+                "bestRoute": [start_node]
+            }],
+            "statistics": {
+                "routesTested": 1,
+                "bestCost": 0.0,
+                "targetsCount": 1,
+                "timeComplexity": "O(N!)",
+                "spaceComplexity": "O(N)"
+            },
+            "learning": {
+                "pseudoCode": ["TSP(Graph, startNode):", "  Single node tour completed."],
+                "explanation": "TSP optimization found only 1 target node; inspection tour is complete at the start device.",
+                "advantages": "Instantaneous solution.",
+                "applications": "Single host inspection."
+            },
+            "result": {"path": [start_node], "cost": 0.0, "targets": [start_node]}
         }
 
     # Build dense distance matrix between target nodes using Dijkstra
@@ -106,11 +127,32 @@ def run_tsp(graph: Dict[str, Any], start_node: str = None, options: Dict[str, An
 
     if N < 2:
         return {
-            "success": False,
-            "timeline": [],
-            "statistics": {},
-            "learning": {},
-            "result": {"error": "No other nodes are reachable from the starting inspection device."}
+            "success": True,
+            "timeline": [{
+                "frame": 1,
+                "currentNode": start_node,
+                "visited": [start_node],
+                "queue": [],
+                "stack": [],
+                "currentEdge": None,
+                "action": f"Tour limited to '{node_labels.get(start_node, start_node)}' because other devices belong to disconnected subgraphs.",
+                "distanceMatrix": {start_node: {start_node: 0.0}},
+                "bestRoute": [start_node]
+            }],
+            "statistics": {
+                "routesTested": 1,
+                "bestCost": 0.0,
+                "targetsCount": 1,
+                "timeComplexity": "O(N!)",
+                "spaceComplexity": "O(N)"
+            },
+            "learning": {
+                "pseudoCode": ["TSP(Graph, startNode):", "  Disconnected component inspection tour."],
+                "explanation": "Other target devices are in disconnected subgraphs; tour visits all reachable devices.",
+                "advantages": "Identifies partition boundaries.",
+                "applications": "Isolated subnet inspection."
+            },
+            "result": {"path": [start_node], "cost": 0.0, "targets": [start_node]}
         }
 
     timeline = []
